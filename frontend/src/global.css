@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font: 300 20px Lexend, sans-serif;
+    background-color: #2E3355;
+    -webkit-font-smoothing: antialiased;
+    color: white;
+}
+
+button {
+    cursor: pointer;
+}
+
+input, textarea, button {
+    font: 300 20px Lexend, sans-serif;
+}
+
+.home-header {
+    width: 100vw;
+    height: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2em;
+    position: relative;
+}
+
+.logo {
+    width: 12%;
+}
+
+button {
+    background-color: #505F93;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    transition: ease;
+}
+
+button:hover {
+    filter: brightness(0.9)
+}
+
+h1 {
+    font-size: 50px;
+}
+
+.profile-pic {
+    border-radius: 100%;
+    width: 90px;
+    height: 90px;
+}
+
+.cards-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    position: absolute;
+    top: -45px;
+    left: -15px;
+}
+
+.profile-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.post-content {
+    background-color: #505471;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: 100%;
+    padding: 1.2em;
+}
+
+.card {
+    width: 420px;
+    position: relative;
+    margin-top: 50px;
+}
+
+.postinfo-container {
+    background-color: #43465E;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 40px;
+}
+
+hr {
+    color: white;
+}
