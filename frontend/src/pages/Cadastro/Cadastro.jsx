@@ -51,12 +51,12 @@ const Cadastro = () => {
                 
                 <button>Continuar</button>
 
-                <div className='section-link'>
-                  <Link to="/login">
+                <Link to="/login">
+                  <div className='section-link'>
                     <FiArrowLeft size={25} color="#505F93"/>
                     <span>Já tenho uma conta</span>
-                  </Link>
-                </div>
+                  </div>
+                </Link>
             </form>
         </section>
     </div>
