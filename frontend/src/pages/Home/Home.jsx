@@ -1,7 +1,7 @@
 import ImgMana from '../../assets/mana.png'
-import Logo from '../../assets/logo.svg'
 import ProfilePicture from '../../assets/profile-pic.jpg'
 import ImgManas from '../../assets/manas2.png'
+import Logo from '../../assets/logo.svg'
 
 import { FiLinkedin, FiGithub, FiMail, FiArrowUp, FiArrowDown, FiMessageCircle } from 'react-icons/fi'
 

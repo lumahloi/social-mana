@@ -1,0 +1,61 @@
+.header-user {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    position: absolute;
+    right: 200px;
+}
+
+.profile-pic-timeline {
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+}
+
+.timeline-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+.post-input {
+    background-color: #505471;
+    border: none;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    height: 50px;
+    width: 600px;
+    padding: 1em;
+    color: white;
+}
+
+.post-button {
+    height: 50px;
+    width: 60px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    background-color: #43465E;
+}
+
+.post-div {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.post-select {
+    height: 50px;
+    width: 100px;
+    background-color: #505471;
+    display: block;
+    border: none;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.trash-icon {
+    position: absolute;
+    right: 20px;
+}

@@ -14,7 +14,7 @@ body {
     color: white;
 }
 
-input, textarea, button {
+input, textarea, button, select, option {
     font: 300 20px Lexend, sans-serif;
 }
 
