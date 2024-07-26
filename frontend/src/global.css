@@ -14,10 +14,6 @@ body {
     color: white;
 }
 
-button {
-    cursor: pointer;
-}
-
 input, textarea, button {
     font: 300 20px Lexend, sans-serif;
 }
@@ -43,6 +39,7 @@ button {
     color: white;
     font-weight: bold;
     transition: ease;
+    cursor: pointer;
 }
 
 button:hover {
@@ -110,6 +107,6 @@ h1 {
     height: 40px;
 }
 
-hr {
+.card hr {
     color: white;
 }

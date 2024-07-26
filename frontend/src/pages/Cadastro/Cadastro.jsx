@@ -9,7 +9,7 @@ const Cadastro = () => {
         <Header />
 
         <section className='unique-section'>
-            <h2>Cadastro</h2>
+            <h2 className='same-h2'>Cadastro</h2>
 
             <form>
                 <label htmlFor="">Nome de usuário</label>

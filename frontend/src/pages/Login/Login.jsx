@@ -8,7 +8,7 @@ const Cadastro = () => {
     <div>
         <Header />
 
-        <section>
+        <section className='unique-section'>
             <h2>Login</h2>
 
             <form>
