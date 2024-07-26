@@ -1,15 +1,24 @@
 import Header from '../../Header'
 import './styles.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../../services/api'
 
 import { FiArrowLeft } from 'react-icons/fi'
 
-const Cadastro = () => {
+const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const userid = localStorage.getItem('userid')
   const navigate = useNavigate()
+
+  console.log(userid)
+
+  useEffect(() => {
+    if(userid){
+      navigate('/timeline')
+    }
+  })
 
   async function handleLogin(e){
     e.preventDefault()
@@ -56,4 +65,4 @@ const Cadastro = () => {
   )
 }
 
-export default Cadastro
+export default Login

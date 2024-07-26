@@ -13,6 +13,7 @@ const Timeline = () => {
   const username = localStorage.getItem('username')
   const pfp = localStorage.getItem('picture')
   const userid = localStorage.getItem('userid')
+  const [ description, setDescription ] = useState('')
   const navigate = useNavigate()
 
   const [posts, setPosts] = useState([])
@@ -21,6 +22,22 @@ const Timeline = () => {
     api.get('/posts', {}).then(response => {
       setPosts(response.data)
   })}, [])
+
+  async function handlePostCreation(e){
+    const data = { description }
+    console.log(data)
+
+    try {
+      await api.post('posts', data, {
+        headers: {
+          Authorization: userid
+        }
+      })
+      navigate('/timeline')
+    } catch (err) {
+      alert('Falha ao criar post! Tente novamente')
+    }
+  }
 
   async function handleDeletePost(id){
     try {
@@ -54,7 +71,7 @@ const Timeline = () => {
           </div>
       </header>
 
-      <form className='timeline-form'>
+      <form className='timeline-form' onSubmit={handlePostCreation}>
         <div>
           <label htmlFor="">Tema:</label>
           <select name="" id="" className='post-select'>
@@ -65,8 +82,8 @@ const Timeline = () => {
         <div>
           <label htmlFor="">O que você está pensando?</label>
           <div className='post-div'>
-            <input type="text" placeholder='Escreva aqui' className='post-input'/>
-            <button className='post-button'><FiSend size={30} color="#FFFFFFF"/></button>
+            <input type="text" placeholder='Escreva aqui' className='post-input' value={description} onChange={e => setDescription(e.target.value)}/>
+            <button className='post-button' type='submit'><FiSend size={30} color="#FFFFFFF"/></button>
           </div>
         </div>
       </form>
