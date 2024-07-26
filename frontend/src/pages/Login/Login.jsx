@@ -44,10 +44,12 @@ const Cadastro = () => {
                 
                 <button>Continuar</button>
 
-                <div className='section-link'>
+                <Link to="/cadastro">
+                  <div className='section-link'>
                       <FiArrowLeft size={25} color="#505F93"/>
                       <span>Quero me cadastrar</span>
-                </div>
+                  </div>
+                </Link>
             </form>
         </section>
     </div>
