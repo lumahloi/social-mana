@@ -24,8 +24,8 @@ const Timeline = () => {
   })}, [])
 
   async function handlePostCreation(e){
+    e.preventDefault()
     const data = { description }
-    console.log(data)
 
     try {
       await api.post('posts', data, {
@@ -33,7 +33,8 @@ const Timeline = () => {
           Authorization: userid
         }
       })
-      navigate('/timeline')
+
+      window.location.reload();
     } catch (err) {
       alert('Falha ao criar post! Tente novamente')
     }
