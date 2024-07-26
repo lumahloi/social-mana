@@ -12,11 +12,11 @@ const Cadastro = () => {
             <h2>Login</h2>
 
             <form>
-                <label htmlFor="">E-mail</label>
-                <input type="email" name="" id=""/>
+                <label htmlFor="useremail">E-mail</label>
+                <input type="email" name="useremail" id="useremail"/>
 
-                <label htmlFor="">Senha</label>
-                <input type="password" name="" id=""/>
+                <label htmlFor="userpass">Senha</label>
+                <input type="password" name="userpass" id="userpass"/>
                 <p>Esqueci minha senha</p>
 
                 <button>Continuar</button>

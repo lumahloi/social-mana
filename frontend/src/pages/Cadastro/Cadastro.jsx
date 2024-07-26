@@ -12,14 +12,14 @@ const Cadastro = () => {
             <h2 className='same-h2'>Cadastro</h2>
 
             <form>
-                <label htmlFor="">Nome de usuário</label>
-                <input type="text" name="" id="" placeholder="Esse será o nome exibido"/>
+                <label htmlFor="username">Nome de usuário</label>
+                <input type="text" name="username" id="username" placeholder="Esse será o nome exibido"/>
 
-                <label htmlFor="">E-mail</label>
-                <input type="email" name="" id="" placeholder="Insira seu melhor email"/>
+                <label htmlFor="useremail">E-mail</label>
+                <input type="email" name="useremail" id="useremail" placeholder="Insira seu melhor email"/>
 
-                <label htmlFor="">Senha</label>
-                <input type="password" name="" id=""/>
+                <label htmlFor="userpass">Senha</label>
+                <input type="password" name="userpass" id="userpass"/>
 
                 <button>Continuar</button>
 
