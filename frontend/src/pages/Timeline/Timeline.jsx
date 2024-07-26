@@ -3,13 +3,16 @@ import ProfilePic from '../../assets/profile-pic.jpg'
 import ProfilePicture from '../../assets/profile-pic.jpg'
 
 import { FiLogOut, FiSend, FiArrowUp, FiArrowDown, FiMessageCircle, FiTrash2 } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
 import './styles.css'
 
 const Timeline = () => {
   return (
     <div>
       <header className='home-header'>
-          <img src={Logo} alt="Mana" className='logo'/>
+          <Link to="/">
+            <img src={Logo} alt="Mana" className='logo'/>
+          </Link>
           <div className='header-user'>
             <img src={ProfilePic} alt="" className='profile-pic-timeline'/>
             <span>@garoto de programa</span> 

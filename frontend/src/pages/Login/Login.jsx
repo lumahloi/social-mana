@@ -1,6 +1,8 @@
 import Header from '../../Header'
 import './styles.css'
 
+import { Link } from 'react-router-dom'
+
 import { FiArrowLeft } from 'react-icons/fi'
 
 const Cadastro = () => {
@@ -19,11 +21,15 @@ const Cadastro = () => {
                 <input type="password" name="userpass" id="userpass"/>
                 <p>Esqueci minha senha</p>
 
-                <button>Continuar</button>
+                <Link to="/timeline">
+                  <button>Continuar</button>
+                </Link>
 
                 <div className='section-link'>
-                    <FiArrowLeft size={25} color="#505F93"/>
-                    <span>Quero me cadastrar</span>
+                    <Link to="/cadastro">
+                      <FiArrowLeft size={25} color="#505F93"/>
+                      <span>Quero me cadastrar</span>
+                    </Link>
                 </div>
             </form>
         </section>

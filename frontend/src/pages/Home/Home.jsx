@@ -3,6 +3,8 @@ import ProfilePicture from '../../assets/profile-pic.jpg'
 import ImgManas from '../../assets/manas2.png'
 import Logo from '../../assets/logo.svg'
 
+import { Link } from 'react-router-dom'
+
 import { FiLinkedin, FiGithub, FiMail, FiArrowUp, FiArrowDown, FiMessageCircle } from 'react-icons/fi'
 
 import './styles.css'
@@ -11,15 +13,22 @@ const Home = () => {
   return (
     <div>
         <header className='home-header'>
-            <img src={Logo} alt="Mana" className='logo'/>
-            <button className='header-button'>Login</button>
+            <Link to="/">
+                <img src={Logo} alt="Mana" className='logo'/>
+            </Link>
+
+            <Link to="/login">
+                <button className='header-button'>Login</button>
+            </Link>
         </header>
 
         <section className='home-section-1'>
             <div className='home-section-div1'>
                 <h1>Descubra amizades, compartilhe momentos</h1>
                 <p><span className='span-bold'>Mana</span> é a sua nova rede social, criada para conectar pessoas de maneira autêntica e significativa. Aqui, você pode compartilhar suas histórias e se inspirar com conteúdos que realmente importam. Faça parte de uma comunidade vibrante e acolhedora!</p>
-                <button>Criar conta</button>
+                <Link to="/cadastro">
+                    <button>Criar conta</button>
+                </Link>
             </div>
             
             <img src={ImgMana} alt="Boneca Mana" className='img-mana'/>
@@ -28,7 +37,9 @@ const Home = () => {
         <section className='home-section-2'>
             <header className='home-header-2'>
                 <h1 className='h1-section-2'>Saiba o que está acontecendo</h1>
-                <button className='header-button-2'>Criar conta</button>
+                <Link to="/cadastro">
+                    <button className='header-button-2'>Criar conta</button>
+                </Link>
             </header>
 
             <div className='cards-container'>
@@ -188,9 +199,9 @@ const Home = () => {
                         <h2>Lumah Pereira</h2>
                         <h3>Designer, Front-End Developer, <br />Back-End Developer</h3>
                         <div className="info-buttons">
-                            <button className='button-social'><FiLinkedin size={40} color="FFFFFFF"/></button>
-                            <button className='button-social'><FiGithub size={40} color="FFFFFFF"/></button>
-                            <button className='button-social'><FiMail size={40} color="FFFFFFF"/></button>
+                            <a href="https://www.linkedin.com/in/lumah-pereira-4744a726a/" target='_blank'><button className='button-social'><FiLinkedin size={40} color="FFFFFFF"/></button></a>
+                            <a href="https://github.com/lumahloi" target='_blank'><button className='button-social'><FiGithub size={40} color="FFFFFFF"/></button></a>
+                            <a href="mailto:lumah.pereira26@gmail.com"><button className='button-social'><FiMail size={40} color="FFFFFFF"/></button></a>
                         </div>
                     </div>
 
