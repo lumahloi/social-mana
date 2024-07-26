@@ -21,5 +21,18 @@ module.exports = {
         })
 
         return response.json()
+    },
+
+    async delete(request, response) {
+        const { id } = request.params
+
+        await connection('users')
+            .where('id', id)
+            .select('id')
+            .first()
+
+        await connection('users').where('id', id).delete()
+
+        return response.status(204).send()
     }
 }

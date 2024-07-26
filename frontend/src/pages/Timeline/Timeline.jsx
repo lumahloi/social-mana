@@ -1,12 +1,46 @@
 import Logo from '../../assets/logo.svg'
-import ProfilePic from '../../assets/profile-pic.jpg'
 import ProfilePicture from '../../assets/profile-pic.jpg'
 
 import { FiLogOut, FiSend, FiArrowUp, FiArrowDown, FiMessageCircle, FiTrash2 } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+
+import api from '../../services/api'
+
 import './styles.css'
 
 const Timeline = () => {
+  const username = localStorage.getItem('username')
+  const pfp = localStorage.getItem('picture')
+  const userid = localStorage.getItem('userid')
+  const navigate = useNavigate()
+
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    api.get('/posts', {}).then(response => {
+      setPosts(response.data)
+  })}, [])
+
+  async function handleDeletePost(id){
+    try {
+      await api.delete(`posts/${id}`, {
+        headers: { 
+          Authorization: userid
+        },
+      })
+
+      setPosts(posts.filter(post => post.id != id))
+    } catch (err) {
+      alert('Não foi possível deletar o post')
+    }
+  }
+
+  function handleLogout(){
+    localStorage.clear()
+    navigate('/login')
+  }
+
   return (
     <div>
       <header className='home-header'>
@@ -14,9 +48,9 @@ const Timeline = () => {
             <img src={Logo} alt="Mana" className='logo'/>
           </Link>
           <div className='header-user'>
-            <img src={ProfilePic} alt="" className='profile-pic-timeline'/>
-            <span>@garoto de programa</span> 
-            <FiLogOut size={22} color="#FFFFFFF"/>
+            <img src={pfp ? pfp : ProfilePicture} alt="" className='profile-pic-timeline'/>
+            <span>@{username}</span> 
+            <FiLogOut size={22} color="#FFFFFFF" onClick={handleLogout} style={{cursor: 'pointer'}}/>
           </div>
       </header>
 
@@ -38,31 +72,33 @@ const Timeline = () => {
       </form>
 
       <div className='cards-container'>
-                <article className='card'>
-                    <div className='profile-container'>
-                        <img src={ProfilePicture} alt="Foto de perfil do usuário" className='profile-pic'/>
+        {posts.map(post => (
+          <article className='card' key={post.id}>
+              <div className='profile-container'>
+                <img src={post.picture ? post.data.picture : ProfilePicture} alt="" className='profile-pic'/>
 
-                        <div className='profile-text'>
-                            <span>/ notícias</span>
-                            <FiTrash2 size={20} color="#FFFFFF" className='trash-icon'/>
-                            <span className='span-bold'>@garoto de programa</span>
-                        </div>
-                    </div>
+                  <div className='profile-text'>
+                      <span>/ notícias</span>
+                      {post.userid === userid && ( <FiTrash2 size={20} color="#FFFFFF" className='trash-icon' onClick={() => handleDeletePost(post.id)} />)}
+                      <span className='span-bold'>@{post.name}</span>
+                  </div>
+              </div>
 
-                    <div className="post-content">
-                        <br />
-                        <p>WTF um cara entrou com uma bateria de lítio num elevador e ela EXPLODIU !!! ele morreu carbonizado '-'</p>
-                    </div>
+              <div className="post-content">
+                  <br />
+                  <p>{post.description}</p>
+              </div>
 
-                    <hr />
+              <hr />
 
-                    <div className="postinfo-container">
-                        <div className='info-div'><FiArrowUp size={25} color="FFFFFFF"/><div className='span-bold'> 10 K</div></div>
-                        <div className='info-div'><FiArrowDown size={25} color="FFFFFFF"/><div className='span-bold'>10 K</div></div>
-                        <div className='info-div'><FiMessageCircle size={25} color="FFFFFFF"/><div className='span-bold'>10 K</div></div>
-                    </div>
-                </article>
-            </div>
+              <div className="postinfo-container">
+                  <div className='info-div'><FiArrowUp size={25} color="FFFFFFF"/><div className='span-bold'>{post.likes ? post.likes : '10 K'}</div></div>
+                  <div className='info-div'><FiArrowDown size={25} color="FFFFFFF"/><div className='span-bold'>{post.dislikes ? post.dislikes : '10 K'}</div></div>
+                  <div className='info-div'><FiMessageCircle size={25} color="FFFFFFF"/><div className='span-bold'>10 k</div></div>
+              </div>
+          </article>
+        ))}
+        </div>
     </div>
   )
 }

@@ -6,7 +6,7 @@ module.exports = {
 
         const userInfo = await connection('users')
             .where('email', email)
-            .select('password')
+            .select('id', 'name', 'password', 'picture')
             .first()
 
         if(!userInfo){
@@ -17,6 +17,8 @@ module.exports = {
             }
         }
 
-        return response.json()
+        const { id, name, picture } = userInfo
+
+        return response.json({id, name, picture})
     }
 }
