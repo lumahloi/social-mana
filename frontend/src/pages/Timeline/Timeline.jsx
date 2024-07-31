@@ -76,14 +76,18 @@ const Timeline = () => {
         <div>
           <label htmlFor="">Tema:</label>
           <select name="" id="" className='post-select'>
-            <option value="">aa</option>
+            <option value="">notícias</option>
+            <option value="">política</option>
+            <option value="">entretenimento</option>
+            <option value="">conversa</option>
+            <option value="">desabafo</option>
           </select>
         </div>
 
         <div>
           <label htmlFor="">O que você está pensando?</label>
           <div className='post-div'>
-            <input type="text" placeholder='Escreva aqui' className='post-input' value={description} onChange={e => setDescription(e.target.value)}/>
+            <input type="text" placeholder='Escreva aqui' className='post-input' value={description} onChange={e => setDescription(e.target.value)} maxLength={125}/>
             <button className='post-button' type='submit'><FiSend size={30} color="#FFFFFFF"/></button>
           </div>
         </div>

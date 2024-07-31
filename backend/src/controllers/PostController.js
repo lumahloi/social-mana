@@ -1,4 +1,5 @@
 const connection = require('../database/connection')
+import LikeController from '../controllers/LikeController'
 
 module.exports = {
     async index(request, response){
@@ -20,7 +21,7 @@ module.exports = {
     async create(request, response) {
         const { description } = request.body
         const userid = request.headers.authorization
-        const likes = null
+        const likes = LikeController.create
         const dislikes = null
 
         const [ id ] = await connection('posts').insert({

@@ -40,13 +40,13 @@ const Cadastro = () => {
 
             <form onSubmit={handleRegister}>
                 <label htmlFor="username">Nome de usuário</label>
-                <input type="text" name="username" id="username" placeholder="Esse será o nome exibido" value={name} onChange={e => setName(e.target.value)}/>
+                <input type="text" name="username" id="username" placeholder="Esse será o nome exibido" value={name} onChange={e => setName(e.target.value)} maxLength={15} minLength={5}/>
 
                 <label htmlFor="useremail">E-mail</label>
                 <input type="email" name="useremail" id="useremail" placeholder="Insira seu melhor email" value={email} onChange={e => setEmail(e.target.value)}/>
 
                 <label htmlFor="userpass">Senha</label>
-                <input type="password" name="userpass" id="userpass" value={password} onChange={e => setPassword(e.target.value)}/>
+                <input type="password" name="userpass" id="userpass" value={password} onChange={e => setPassword(e.target.value)} minLength={8}/>
 
                 
                 <button>Continuar</button>
