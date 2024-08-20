@@ -1,5 +1,4 @@
 const connection = require('../database/connection')
-import LikeController from '../controllers/LikeController'
 
 module.exports = {
     async index(request, response){
