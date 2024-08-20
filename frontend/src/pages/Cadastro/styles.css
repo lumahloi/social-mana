@@ -52,3 +52,14 @@
 .section-link:hover {
     opacity: 0.9;
 }
+
+.input-group button {
+    background-color: transparent;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    top: -38px;
+    right: -240px;
+    z-index: 10;
+    outline: none;
+}
