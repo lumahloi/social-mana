@@ -45,10 +45,10 @@ const Login = () => {
 
             <form onSubmit={handleLogin}>
                 <label htmlFor="useremail">E-mail</label>
-                <input type="email" name="useremail" id="useremail" value={email} onChange={e => setEmail(e.target.value)}/>
+                <input type="email" name="useremail" id="useremail" value={email} onChange={e => setEmail(e.target.value)} maxLength={30} required/>
 
                 <label htmlFor="userpass">Senha</label>
-                <input type="password" name="userpass" id="userpass" value={password} onChange={e => setPassword(e.target.value)}/>
+                <input type="password" name="userpass" id="userpass" value={password} onChange={e => setPassword(e.target.value)} minLength={8} maxLength={20} required placeholder='Insira sua senha'/>
                 <p>Esqueci minha senha</p>
                 
                 <button>Continuar</button>
