@@ -3,7 +3,7 @@ const express = require('express')
 const UserController = require('./controllers/UserController')
 const PostController = require('./controllers/PostController')
 const SessionController = require('./controllers/SessionController')
-//const LikeController = require('./controllers/LikeController')
+const LikeController = require('./controllers/LikeController')
 
 const routes = express.Router()
 
@@ -17,6 +17,8 @@ routes.delete('/posts/:id', PostController.delete)
 
 routes.post('/sessions', SessionController.create)
 
-//routes.post('/likes', LikeController.create)
+routes.post('/likes/:postid', LikeController.create)
+routes.get('/likes', LikeController.index)
+routes.delete('/likes/:postid', LikeController.delete)
 
 module.exports = routes;

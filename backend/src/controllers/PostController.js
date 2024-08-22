@@ -20,12 +20,10 @@ module.exports = {
     async create(request, response) {
         const { description } = request.body
         const userid = request.headers.authorization
-        const likes = null
         const dislikes = null
 
         const [ id ] = await connection('posts').insert({
             description,
-            likes,
             dislikes,
             userid
         })
