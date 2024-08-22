@@ -196,18 +196,13 @@ const Home = () => {
 
                 <div className="time-content">
                     <div className='infos'>
-                        <h2>Lumah Pereira</h2>
-                        <h3>Designer, Front-End Developer, <br />Back-End Developer</h3>
-                        <div className="info-buttons">
-                            <a href="https://www.linkedin.com/in/lumah-pereira-4744a726a/" target='_blank'><button className='button-social'><FiLinkedin size={40} color="FFFFFFF"/></button></a>
-                            <a href="https://github.com/lumahloi" target='_blank'><button className='button-social'><FiGithub size={40} color="FFFFFFF"/></button></a>
-                            <a href="mailto:lumah.pereira26@gmail.com"><button className='button-social'><FiMail size={40} color="FFFFFFF"/></button></a>
-                        </div>
+                        <h2>lumahloi</h2>
+                        <h3>Design, Front-End Development, <br />Back-End Development</h3>
                     </div>
 
                     <div className='infos'>
                         <img src={Logo} alt="Mana" className='logo-bosta'/>
-                        <p>2024 Feito por Lumah Pereira. Todos os direitos reservados.</p>
+                        <p>2024 Feito por lumahloi. Alguns direitos reservados.</p>
                     </div>
                 </div>
 
