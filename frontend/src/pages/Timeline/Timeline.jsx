@@ -23,11 +23,16 @@ const Timeline = () => {
       setPosts(response.data)
   })}, [])
 
+  useEffect(() => {
+    posts.forEach(post => {
+      handleGetPostLikes(post.id)
+    })
+  }, [posts])
+
   async function handleGetPostLikes(postid){
     try {
-      await api.get(`/likes/${postid}`, {})
-        .then(response => { setLikes(response.data)})
-        console.log(likes.count)
+      const response = await api.get(`/likes/${postid}`, {})
+      setLikes(prevLikes => ({...prevLikes, [postid]: response.data["count(*)"]}))
     } catch (err) {
       alert('Falha ao pegar likes!')
     }
@@ -126,7 +131,7 @@ const Timeline = () => {
               <div className="postinfo-container">
                   <div className='info-div'>
                     <FiArrowUp size={25} color="FFFFFFF"/>
-                    <div className='span-bold'>{handleGetPostLikes(post.id)}</div>
+                    <div className='span-bold'>{likes[post.id] || 0}</div>
                   </div>
 
                   <div className='info-div'><FiArrowDown size={25} color="FFFFFFF"/><div className='span-bold'>{post.dislikes ? post.dislikes : '10 K'}</div></div>
