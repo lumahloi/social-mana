@@ -15,13 +15,23 @@ const Timeline = () => {
   const userid = localStorage.getItem('userid')
   const [ description, setDescription ] = useState('')
   const navigate = useNavigate()
-
   const [posts, setPosts] = useState([])
+  const [likes, setLikes] = useState([])
 
   useEffect(() => {
     api.get('/posts', {}).then(response => {
       setPosts(response.data)
   })}, [])
+
+  async function handleGetPostLikes(postid){
+    try {
+      await api.get(`/likes/${postid}`, {})
+        .then(response => { setLikes(response.data)})
+        console.log(likes.count)
+    } catch (err) {
+      alert('Falha ao pegar likes!')
+    }
+  }
 
   async function handlePostCreation(e){
     e.preventDefault()
@@ -114,7 +124,11 @@ const Timeline = () => {
               <hr />
 
               <div className="postinfo-container">
-                  <div className='info-div'><FiArrowUp size={25} color="FFFFFFF"/><div className='span-bold'>{post.likes ? post.likes : '10 K'}</div></div>
+                  <div className='info-div'>
+                    <FiArrowUp size={25} color="FFFFFFF"/>
+                    <div className='span-bold'>{handleGetPostLikes(post.id)}</div>
+                  </div>
+
                   <div className='info-div'><FiArrowDown size={25} color="FFFFFFF"/><div className='span-bold'>{post.dislikes ? post.dislikes : '10 K'}</div></div>
                   <div className='info-div'><FiMessageCircle size={25} color="FFFFFFF"/><div className='span-bold'>10 k</div></div>
               </div>
