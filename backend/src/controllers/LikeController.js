@@ -45,5 +45,12 @@ module.exports = {
         await connection('likes').where('userid', userid).where('postid', postid).first().delete()
 
         return response.status(204).send()
+    },
+
+    async count(request, response){
+        const { postid } = request.params
+
+        const likesQt = await connection('likes').where('postid', postid).count()
+        return response.json(likesQt)
     }
 }

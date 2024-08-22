@@ -20,5 +20,6 @@ routes.post('/sessions', SessionController.create)
 routes.post('/likes/:postid', LikeController.create)
 routes.get('/likes', LikeController.index)
 routes.delete('/likes/:postid', LikeController.delete)
+routes.get('/likes/:postid', LikeController.count)
 
 module.exports = routes;
