@@ -13,10 +13,12 @@ const Timeline = () => {
   const username = localStorage.getItem('username')
   const pfp = localStorage.getItem('picture')
   const userid = localStorage.getItem('userid')
+
   const [ description, setDescription ] = useState('')
-  const navigate = useNavigate()
   const [posts, setPosts] = useState([])
   const [likes, setLikes] = useState([])
+  const [hover, setHover] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     api.get('/posts', {}).then(response => {
@@ -72,6 +74,20 @@ const Timeline = () => {
   function handleLogout(){
     localStorage.clear()
     navigate('/login')
+  }
+
+  async function handleNewLike(postid){
+    try {
+      console.log('USER ID NA MERDA DO FRONT: ' + userid)
+      await api.post(`/likes/${postid}`, {}, {
+        headers: {
+          Authorization: userid
+        },
+      })
+      window.location.reload()
+    } catch (err) {
+      alert('Não foi possível dar like')
+    }
   }
 
   return (
@@ -130,7 +146,13 @@ const Timeline = () => {
 
               <div className="postinfo-container">
                   <div className='info-div'>
-                    <FiArrowUp size={25} color="FFFFFFF"/>
+                    <FiArrowUp
+                      size={25}
+                      color={hover ? "#000000" : "#FFFFFF"}
+                      onMouseEnter={() => setHover(true)}
+                      onMouseLeave={() => setHover(false)}
+                      onClick={() => handleNewLike(post.id)}
+                    />
                     <div className='span-bold'>{likes[post.id] || 0}</div>
                   </div>
 

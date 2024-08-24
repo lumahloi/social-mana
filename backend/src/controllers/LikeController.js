@@ -3,23 +3,18 @@ const connection = require('../database/connection')
 
 module.exports = {
     async create(request, response){
-        const userid = request.headers.authorization
         const { postid } = request.params
+        const userid = request.headers.authorization
 
-        //Checar se o usuário já deu like no mesmo post anteriormente
-        const check = await connection('likes')
-            .where('userid', userid)
-            .where('postid', postid)
-            .first()
+        console.log('USER ID NA MERDA DO BACK: ' + userid)
 
-        if(!postid || !userid || check){
+        if(!postid || !userid){
             return response.status(401).json({error: 'Operation not permitted.'})
         } else {
             await connection('likes').insert({
                 userid,
                 postid
             })
-
             return response.json()
         }
     },
@@ -50,7 +45,7 @@ module.exports = {
     async count(request, response){
         const { postid } = request.params
 
-        const likesQt = await connection('likes').where('postid', postid).first().count()
+        const likesQt = await connection('likes').where('postid', postid).count().first()
         return response.json(likesQt)
     }
 }
