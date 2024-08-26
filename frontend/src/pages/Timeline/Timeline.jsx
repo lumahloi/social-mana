@@ -9,8 +9,22 @@ import api from '../../services/api'
 
 import './styles.css'
 
-const Article = ({ post, userid, handleDeletePost, handleNewLike, likes}) => {
+const Article = ({post, userid, handleDeletePost, handleNewLike, likes}) => {
   const [hover, setHover] = useState(false)
+  const [liked, setLiked] = useState(false)
+
+  useEffect(() => {
+    api.get('/likes', {
+        headers: {
+          Authorization: userid,
+          Item: post.id,
+        }
+    }).then(response => {
+      if(response.status == 200){
+        setLiked(true)
+      }
+    })}, [])
+    console.log('post id: ' + post.id + 'liked? ' + liked)
   return (
     <article className='card' key={post.id}>
       <div className='profile-container'>
@@ -34,7 +48,7 @@ const Article = ({ post, userid, handleDeletePost, handleNewLike, likes}) => {
         <div className='info-div'>
           <FiArrowUp
             size={25}
-            color={hover ? "#000000" : "#FFFFFF"}
+            color={liked ? 'red' : hover ? "#000000" : "#FFFFFF"}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             onClick={() => handleNewLike(post.id)}
@@ -125,7 +139,6 @@ const Timeline = () => {
 
   async function handleNewLike(postid){
     try {
-      console.log('USER ID NA MERDA DO FRONT: ' + userid)
       await api.post(`/likes/${postid}`, {}, {
         headers: {
           Authorization: userid

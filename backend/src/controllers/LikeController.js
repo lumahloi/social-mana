@@ -6,8 +6,6 @@ module.exports = {
         const { postid } = request.params
         const userid = request.headers.authorization
 
-        console.log('USER ID NA MERDA DO BACK: ' + userid)
-
         if(!postid || !userid){
             return response.status(401).json({error: 'Operation not permitted.'})
         } else {
@@ -20,8 +18,20 @@ module.exports = {
     },
 
     async index(request, response){
-        const allLikes = await connection('likes').select('*')
-        return response.json(allLikes)
+        const userid = request.headers.authorization
+        const postid = request.headers.item
+
+        const like = await connection('likes')
+            .where('userid', userid)
+            .where('postid', postid)
+            .first()
+            console.log(userid + ' ' + postid)
+        if(like){
+            console.log('achei')
+            return response.status(200).json(like)
+        } else {
+            return response.status(404).json({error: 'Like not found.'})
+        }
     },
 
     async delete(request, response){
