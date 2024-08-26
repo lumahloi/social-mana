@@ -13,8 +13,6 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
 
-  console.log(userid)
-
   useEffect(() => {
     if(userid){
       navigate('/timeline')

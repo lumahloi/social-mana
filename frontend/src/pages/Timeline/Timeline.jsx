@@ -24,7 +24,6 @@ const Article = ({post, userid, handleDeletePost, handleNewLike, likes}) => {
         setLiked(true)
       }
     })}, [])
-    console.log('post id: ' + post.id + 'liked? ' + liked)
   return (
     <article className='card' key={post.id}>
       <div className='profile-container'>

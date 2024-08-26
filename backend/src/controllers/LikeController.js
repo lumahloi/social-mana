@@ -25,9 +25,7 @@ module.exports = {
             .where('userid', userid)
             .where('postid', postid)
             .first()
-            console.log(userid + ' ' + postid)
         if(like){
-            console.log('achei')
             return response.status(200).json(like)
         } else {
             return response.status(404).json({error: 'Like not found.'})
