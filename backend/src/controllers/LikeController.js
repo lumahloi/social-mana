@@ -1,4 +1,5 @@
 
+const { json } = require('express')
 const connection = require('../database/connection')
 
 module.exports = {
@@ -19,23 +20,37 @@ module.exports = {
 
     async index(request, response){
         const userid = request.headers.authorization
-        const postid = request.headers.item
+        const { postid } = request.params
 
         const like = await connection('likes')
-            .where('userid', userid)
             .where('postid', postid)
+            .count()
             .first()
+
         if(like){
-            return response.status(200).json(like)
+            const liked = await connection('likes')
+                .where('userid', userid)
+                .where('postid', postid)
+                .first()
+
+            let jsonFinal
+
+            if(liked) {
+                jsonFinal = Object.assign(like, {liked: true})
+            } else {
+                jsonFinal = Object.assign(like, {liked: false})
+            }
+
+            return response.status(200).json(jsonFinal)
         } else {
-            return response.status(404).json({error: 'Like not found.'})
+            alert('Post não encontrado')
+            return response.status(404)
         }
     },
 
     async delete(request, response){
         const userid = request.headers.authorization
         const { postid } = request.params
-        console.log('userid: ' + userid + ' postid: ' + postid)
 
         const unlike = await connection('likes')
             .where('userid', userid)
@@ -51,10 +66,4 @@ module.exports = {
         return response.status(204).send()
     },
 
-    async count(request, response){
-        const { postid } = request.params
-
-        const likesQt = await connection('likes').where('postid', postid).count().first()
-        return response.json(likesQt)
-    }
 }

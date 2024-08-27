@@ -9,21 +9,30 @@ import api from '../../services/api'
 
 import './styles.css'
 
-const Article = ({post, userid, handleDeletePost, handleNewLike, likes}) => {
+const Article = ({post, userid, handleDeletePost}) => {
   const [hover, setHover] = useState(false)
   const [liked, setLiked] = useState(false)
+  const [likes, setLikes] = useState([])
 
   useEffect(() => {
-    api.get('/likes', {
-        headers: {
-          Authorization: userid,
-          Item: post.id,
-        }
-    }).then(response => {
-      if(response.status == 200){
-        setLiked(true)
+    const fetchData = async () => {
+      try {
+        const response = await api.get(`likes/${post.id}`, { headers: { Authorization: userid }})
+        setLikes(response.data["count(*)"])
+        setLiked(response.data[liked])
+
+      } catch (e) {
+        alert('Não foi possível recuperar os likes')
+        console.log(e)
       }
-    })}, [])
+    }
+
+    if(post.id){
+      fetchData()
+    } else {
+      console.log('post.id não está definido')
+    }
+  }, [post.id])
 
     async function handleDeleteLike(postid){
       try {
@@ -32,8 +41,22 @@ const Article = ({post, userid, handleDeletePost, handleNewLike, likes}) => {
             Authorization: userid
           },
         })
+        setLiked(false)
       } catch (err) {
         alert('Não foi possível tirar seu like.')
+      }
+    }
+
+    async function handleNewLike(postid){
+      try {
+        await api.post(`/likes/${postid}`, {}, {
+          headers: {
+            Authorization: userid
+          },
+        })
+        setLiked(true)
+      } catch (err) {
+        alert('Não foi possível dar like')
       }
     }
 
@@ -88,31 +111,15 @@ const Timeline = () => {
   const username = localStorage.getItem('username')
   const pfp = localStorage.getItem('picture')
   const userid = localStorage.getItem('userid')
-
+  
   const [ description, setDescription ] = useState('')
   const [posts, setPosts] = useState([])
-  const [likes, setLikes] = useState([])
   const navigate = useNavigate()
 
   useEffect(() => {
     api.get('/posts', {}).then(response => {
       setPosts(response.data)
   })}, [])
-
-  useEffect(() => {
-    posts.forEach(post => {
-      handleGetPostLikes(post.id)
-    })
-  }, [posts])
-
-  async function handleGetPostLikes(postid){
-    try {
-      const response = await api.get(`/likes/${postid}`, {})
-      setLikes(prevLikes => ({...prevLikes, [postid]: response.data["count(*)"]}))
-    } catch (err) {
-      alert('Falha ao pegar likes!')
-    }
-  }
 
   async function handlePostCreation(e){
     e.preventDefault()
@@ -148,19 +155,6 @@ const Timeline = () => {
   function handleLogout(){
     localStorage.clear()
     navigate('/login')
-  }
-
-  async function handleNewLike(postid){
-    try {
-      await api.post(`/likes/${postid}`, {}, {
-        headers: {
-          Authorization: userid
-        },
-      })
-      window.location.reload()
-    } catch (err) {
-      alert('Não foi possível dar like')
-    }
   }
 
   return (
@@ -204,8 +198,6 @@ const Timeline = () => {
             post={post}
             userid={userid}
             handleDeletePost={handleDeletePost}
-            handleNewLike={handleNewLike}
-            likes={likes}
           />
         ))}
       </div>

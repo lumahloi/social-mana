@@ -19,7 +19,6 @@ routes.post('/sessions', SessionController.create)
 
 routes.post('/likes/:postid', LikeController.create)        //usuario da like. headers: authorization
 routes.delete('/likes/:postid', LikeController.delete)      //usuario da unlike. headers: authorization
-routes.get('/likes/', LikeController.index)                 //retorna se user deu like num post por headers
-routes.get('/likes/:postid', LikeController.count)          //retorna qt de likes de :postid. 
+routes.get('/likes/:postid', LikeController.index)          //retorna se user deu like num post por headers
 
 module.exports = routes;
