@@ -9,72 +9,72 @@ import api from '../../services/api'
 
 import './styles.css'
 
-const Article = ({post, userid, handleDeletePost}) => {
+const CardController = ({loggeduser, post}) => {
+  const { id, description, dislikes, userid, name, picture } = post
+
   const [hover, setHover] = useState(false)
   const [liked, setLiked] = useState(false)
   const [likes, setLikes] = useState([])
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get(`likes/${post.id}`, { headers: { Authorization: userid }})
-        setLikes(response.data["count(*)"])
-        setLiked(response.data[liked])
+    api.get(`likes/${id}`, { headers: { Authorization: loggeduser }}).then(response => {
+      setLikes(response.data.count)
+      setLiked(response.data.liked)
+    })
+  }, [id, loggeduser])
 
-      } catch (e) {
-        alert('Não foi possível recuperar os likes')
-        console.log(e)
-      }
-    }
+  async function handleDeletePost(id){
+    try {
+      await api.delete(`posts/${id}`, { headers: {  Authorization: loggeduser }, })
 
-    if(post.id){
-      fetchData()
-    } else {
-      console.log('post.id não está definido')
-    }
-  }, [post.id])
+      //ajustar isso mais tarde
+      window.location.reload()
 
-    async function handleDeleteLike(postid){
-      try {
-        await api.delete(`likes/${postid}`, {
-          headers: { 
-            Authorization: userid
-          },
-        })
-        setLiked(false)
-      } catch (err) {
-        alert('Não foi possível tirar seu like.')
-      }
+    } catch (e) {
+      alert('Não foi possível deletar o post')
+      console.log(e)
     }
+  }
 
-    async function handleNewLike(postid){
-      try {
-        await api.post(`/likes/${postid}`, {}, {
-          headers: {
-            Authorization: userid
-          },
-        })
-        setLiked(true)
-      } catch (err) {
-        alert('Não foi possível dar like')
-      }
+  async function handleDeleteLike(id){
+    try {
+      await api.delete(`likes/${id}`, { headers: { Authorization: loggeduser }, })
+      setLikes(prevLikes => prevLikes - 1)
+      setLiked(false)
+
+    } catch (e) {
+      alert('Não foi possível tirar seu like.')
+      console.log(e)
     }
+  }
+
+  async function handleNewLike(id){
+    try {
+      await api.post(`/likes/${id}`, {}, { headers: { Authorization: loggeduser }})
+      setLikes(prevLikes => prevLikes + 1)
+      setLiked(true)
+
+    } catch (e) {
+      alert('Não foi possível dar like.')
+      console.log(e)
+    }
+  }
 
   return (
-    <article className='card' key={post.id}>
+    <article className='card' key={id}>
       <div className='profile-container'>
-        <img src={post.picture ? post.data.picture : ProfilePicture} alt="" className='profile-pic'/>
+        <img src={picture ? picture : ProfilePicture} alt="" className='profile-pic'/>
 
         <div className='profile-text'>
           <span>/ notícias</span>
-            {post.userid === userid && ( <FiTrash2 size={20} color="#FFFFFF" className='trash-icon' onClick={() => handleDeletePost(post.id)} />)}
-          <span className='span-bold'>@{post.name}</span>
+            {userid === loggeduser && ( <FiTrash2 size={20} color="#FFFFFF" className='trash-icon' onClick={() => handleDeletePost(id)} />)}
+          <span className='span-bold'>@{name}</span>
         </div>
       </div>
 
       <div className="post-content">
         <br />
-        <p>{post.description}</p>
+        <p>{description}</p>
       </div>
 
       <hr />
@@ -86,16 +86,16 @@ const Article = ({post, userid, handleDeletePost}) => {
             color={liked ? '#000000' : hover ? "#989898" : "#FFFFFF"}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            onClick={liked ? () => handleDeleteLike(post.id) : () => handleNewLike(post.id) }
+            onClick={liked ? () => handleDeleteLike(id) : () => handleNewLike(id) }
             style={{cursor: 'pointer'}}
           />
 
-          <div className='span-bold'>{likes[post.id] || 0}</div>
+          <div className='span-bold'>{likes}</div>
         </div>
 
         <div className='info-div'>
           <FiArrowDown size={25} color="FFFFFFF" style={{cursor: 'pointer'}}/>
-          <div className='span-bold'>{post.dislikes ? post.dislikes : '10 K'}</div>
+          <div className='span-bold'>{dislikes ? dislikes : '10 K'}</div>
         </div>
 
         <div className='info-div'>
@@ -110,16 +110,11 @@ const Article = ({post, userid, handleDeletePost}) => {
 const Timeline = () => {
   const username = localStorage.getItem('username')
   const pfp = localStorage.getItem('picture')
-  const userid = localStorage.getItem('userid')
-  
-  const [ description, setDescription ] = useState('')
-  const [posts, setPosts] = useState([])
+  const loggeduser = localStorage.getItem('userid')
   const navigate = useNavigate()
 
-  useEffect(() => {
-    api.get('/posts', {}).then(response => {
-      setPosts(response.data)
-  })}, [])
+  const [posts, setPosts] = useState([])
+  const [description, setDescription] = useState('')
 
   async function handlePostCreation(e){
     e.preventDefault()
@@ -128,7 +123,7 @@ const Timeline = () => {
     try {
       await api.post('posts', data, {
         headers: {
-          Authorization: userid
+          Authorization: loggeduser
         }
       })
 
@@ -138,19 +133,10 @@ const Timeline = () => {
     }
   }
 
-  async function handleDeletePost(id){
-    try {
-      await api.delete(`posts/${id}`, {
-        headers: { 
-          Authorization: userid
-        },
-      })
-
-      setPosts(posts.filter(post => post.id != id))
-    } catch (err) {
-      alert('Não foi possível deletar o post')
-    }
-  }
+  useEffect(() => {
+    api.get('/posts', {}).then(response => {
+      setPosts(response.data)
+  })}, [])
 
   function handleLogout(){
     localStorage.clear()
@@ -193,12 +179,9 @@ const Timeline = () => {
 
       <div className='cards-container'>
         {posts.map(post => (
-          <Article
-            key={post.id}
-            post={post}
-            userid={userid}
-            handleDeletePost={handleDeletePost}
-          />
+          <CardController 
+            loggeduser={loggeduser} 
+            post={post}/>
         ))}
       </div>
     </div>

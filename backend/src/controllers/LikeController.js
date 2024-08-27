@@ -1,4 +1,3 @@
-
 const { json } = require('express')
 const connection = require('../database/connection')
 
@@ -18,33 +17,40 @@ module.exports = {
         }
     },
 
-    async index(request, response){
-        const userid = request.headers.authorization
-        const { postid } = request.params
-
-        const like = await connection('likes')
+    async index(request, response) {
+        const userid = request.headers.authorization;
+        const { postid } = request.params;
+    
+        // Obtém a contagem de likes para o post
+        const likeResult = await connection('likes')
             .where('postid', postid)
             .count()
-            .first()
-
-        if(like){
+            .first();
+    
+        // Verifica se o resultado foi encontrado
+        if (likeResult != undefined) {
+            // Ajusta o nome da chave de 'count(*)' para 'count'
+            const like = {
+                count: parseInt(likeResult['count(*)'], 10)
+            };
+    
+            // Verifica se o usuário deu like no post
             const liked = await connection('likes')
                 .where('userid', userid)
                 .where('postid', postid)
-                .first()
-
-            let jsonFinal
-
-            if(liked) {
-                jsonFinal = Object.assign(like, {liked: true})
+                .first();
+    
+            let jsonFinal;
+    
+            // Adiciona a informação de se o usuário deu like ou não
+            if (liked) {
+                jsonFinal = { ...like, liked: true };
             } else {
-                jsonFinal = Object.assign(like, {liked: false})
+                jsonFinal = { ...like, liked: false };
             }
-
-            return response.status(200).json(jsonFinal)
+            return response.status(200).json(jsonFinal);
         } else {
-            alert('Post não encontrado')
-            return response.status(404)
+            return response.status(404).send();
         }
     },
 
