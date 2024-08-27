@@ -24,6 +24,19 @@ const Article = ({post, userid, handleDeletePost, handleNewLike, likes}) => {
         setLiked(true)
       }
     })}, [])
+
+    async function handleDeleteLike(postid){
+      try {
+        await api.delete(`likes/${postid}`, {
+          headers: { 
+            Authorization: userid
+          },
+        })
+      } catch (err) {
+        alert('Não foi possível tirar seu like.')
+      }
+    }
+
   return (
     <article className='card' key={post.id}>
       <div className='profile-container'>
@@ -47,22 +60,23 @@ const Article = ({post, userid, handleDeletePost, handleNewLike, likes}) => {
         <div className='info-div'>
           <FiArrowUp
             size={25}
-            color={liked ? 'red' : hover ? "#000000" : "#FFFFFF"}
+            color={liked ? '#000000' : hover ? "#989898" : "#FFFFFF"}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            onClick={() => handleNewLike(post.id)}
+            onClick={liked ? () => handleDeleteLike(post.id) : () => handleNewLike(post.id) }
+            style={{cursor: 'pointer'}}
           />
 
           <div className='span-bold'>{likes[post.id] || 0}</div>
         </div>
 
         <div className='info-div'>
-          <FiArrowDown size={25} color="FFFFFFF"/>
+          <FiArrowDown size={25} color="FFFFFFF" style={{cursor: 'pointer'}}/>
           <div className='span-bold'>{post.dislikes ? post.dislikes : '10 K'}</div>
         </div>
 
         <div className='info-div'>
-          <FiMessageCircle size={25} color="FFFFFFF"/>
+          <FiMessageCircle size={25} color="FFFFFFF" style={{cursor: 'pointer'}}/>
           <div className='span-bold'>10 k</div>
         </div>
       </div>

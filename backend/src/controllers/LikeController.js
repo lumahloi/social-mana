@@ -35,6 +35,7 @@ module.exports = {
     async delete(request, response){
         const userid = request.headers.authorization
         const { postid } = request.params
+        console.log('userid: ' + userid + ' postid: ' + postid)
 
         const unlike = await connection('likes')
             .where('userid', userid)
