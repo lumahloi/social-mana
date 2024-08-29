@@ -21,15 +21,17 @@ const CardController = ({loggeduser, post}) => {
   const [likes, setLikes] = useState([])
   const [dislikes, setDislikes] = useState([])
 
+  const [trashHover, setTrashHover] = useState(false)
+
   useEffect(() => {
     api.get(`likes/${id}`, { headers: { Authorization: loggeduser }}).then(response => {
       setLikes(response.data.count)
-      setLiked(response.data.disliked)
+      setLiked(response.data.liked)
     })
 
     api.get(`dislikes/${id}`, { headers: { Authorization: loggeduser }}).then(response => {
       setDislikes(response.data.count)
-      setDisliked(response.data.liked)
+      setDisliked(response.data.disliked)
     })
   }, [id, loggeduser])
 
@@ -100,9 +102,17 @@ const CardController = ({loggeduser, post}) => {
         <img src={picture ? picture : ProfilePicture} alt="" className='profile-pic'/>
 
         <div className='profile-text'>
-          <span>/ notícias</span>
-            {userid === loggeduser && ( <FiTrash2 size={20} color="#FFFFFF" className='trash-icon' onClick={() => handleDeletePost(id)} />)}
-          <span className='span-bold'>@{name}</span>
+          <span style={{cursor: 'pointer'}}>/ notícias</span>
+            {userid === loggeduser && ( 
+              <FiTrash2 
+                size={20} 
+                color={trashHover ? "#989898" : "#FFFFFF"}
+                onMouseEnter={() => setTrashHover(true)}
+                onMouseLeave={() => setTrashHover(false)} 
+                className='trash-icon' 
+                onClick={() => handleDeletePost(id)} />
+            )}
+          <span className='span-bold' style={{cursor: 'pointer'}}>@{name}</span>
         </div>
       </div>
 
@@ -136,11 +146,12 @@ const CardController = ({loggeduser, post}) => {
             style={{cursor: 'pointer'}}/>
           <div className='span-bold'>{dislikes}</div>
         </div>
-
+        {/*
         <div className='info-div'>
           <FiMessageCircle size={25} color="FFFFFFF" style={{cursor: 'pointer'}}/>
           <div className='span-bold'>10 k</div>
         </div>
+        */}
       </div>
     </article>
   )
@@ -154,6 +165,7 @@ const Timeline = () => {
 
   const [posts, setPosts] = useState([])
   const [description, setDescription] = useState('')
+  const [logoutHover, setLogoutHover] = useState(false)
 
   async function handlePostCreation(e){
     e.preventDefault()
@@ -190,8 +202,10 @@ const Timeline = () => {
           </Link>
           <div className='header-user'>
             <img src={pfp ? pfp : ProfilePicture} alt="" className='profile-pic-timeline'/>
-            <span>@{username}</span> 
-            <FiLogOut size={22} color="#FFFFFFF" onClick={handleLogout} style={{cursor: 'pointer'}}/>
+            <span style={{cursor: 'pointer'}}>@{username}</span> 
+            <FiLogOut size={22} color={logoutHover ? "#989898" : "#FFFFFF"}
+                onMouseEnter={() => setLogoutHover(true)}
+                onMouseLeave={() => setLogoutHover(false)}  onClick={handleLogout} style={{cursor: 'pointer'}}/>
           </div>
       </header>
 
