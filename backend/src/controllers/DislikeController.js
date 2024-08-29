@@ -8,7 +8,7 @@ module.exports = {
         if(!postid || !userid){
             return response.status(401).json({error: 'Operation not permitted.'})
         } else {
-            await connection('likes').insert({
+            await connection('dislikes').insert({
                 userid,
                 postid
             })
@@ -20,21 +20,21 @@ module.exports = {
         const userid = request.headers.authorization;
         const { postid } = request.params;
     
-        // Obtém a contagem de likes para o post
-        const likeResult = await connection('likes')
+        // Obtém a contagem de dislikes para o post
+        const dislikeResult = await connection('dislikes')
             .where('postid', postid)
             .count()
             .first();
     
         // Verifica se o resultado foi encontrado
-        if (likeResult != undefined) {
+        if (dislikeResult != undefined) {
             // Ajusta o nome da chave de 'count(*)' para 'count'
-            const like = {
-                count: parseInt(likeResult['count(*)'], 10)
+            const dislike = {
+                count: parseInt(dislikeResult['count(*)'], 10)
             };
     
             // Verifica se o usuário deu like no post
-            const liked = await connection('likes')
+            const disliked = await connection('dislikes')
                 .where('userid', userid)
                 .where('postid', postid)
                 .first();
@@ -42,10 +42,10 @@ module.exports = {
             let jsonFinal;
     
             // Adiciona a informação de se o usuário deu like ou não
-            if (liked) {
-                jsonFinal = { ...like, liked: true };
+            if (disliked) {
+                jsonFinal = { ...dislike, disliked: true };
             } else {
-                jsonFinal = { ...like, liked: false };
+                jsonFinal = { ...dislike, disliked: false };
             }
             return response.status(200).json(jsonFinal);
         } else {
@@ -57,16 +57,16 @@ module.exports = {
         const userid = request.headers.authorization
         const { postid } = request.params
 
-        const unlike = await connection('likes')
+        const undislike = await connection('dislikes')
             .where('userid', userid)
             .where('postid', postid)
             .first()
 
-        if(!unlike){
+        if(!undislike){
             return response.status(401).json({error: 'Operation not permitted.'})
         }
 
-        await connection('likes').where('userid', userid).where('postid', postid).first().delete()
+        await connection('dislikes').where('userid', userid).where('postid', postid).first().delete()
 
         return response.status(204).send()
     },

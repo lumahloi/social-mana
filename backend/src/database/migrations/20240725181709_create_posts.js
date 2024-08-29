@@ -6,10 +6,8 @@ exports.up = function(knex) {
     return knex.schema.createTable('posts', function(table){
       table.increments()
       table.string('description').notNullable()
-      table.json('dislikes')
-
-      table.string('userid')
-
+      table.string('userid').notNullable()
+      
       table.foreign('userid').references('id').inTable('users')
     })
   
