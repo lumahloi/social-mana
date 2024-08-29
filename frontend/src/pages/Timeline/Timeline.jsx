@@ -10,16 +10,26 @@ import api from '../../services/api'
 import './styles.css'
 
 const CardController = ({loggeduser, post}) => {
-  const { id, description, dislikes, userid, name, picture } = post
+  const { id, description, userid, name, picture } = post
 
-  const [hover, setHover] = useState(false)
+  const [likeHover, SetLikeHover] = useState(false)
+  const [dislikeHover, SetDislikeHover] = useState(false)
+
   const [liked, setLiked] = useState(false)
+  const [disliked, setDisliked] = useState(false)
+
   const [likes, setLikes] = useState([])
+  const [dislikes, setDislikes] = useState([])
 
   useEffect(() => {
     api.get(`likes/${id}`, { headers: { Authorization: loggeduser }}).then(response => {
       setLikes(response.data.count)
-      setLiked(response.data.liked)
+      setLiked(response.data.disliked)
+    })
+
+    api.get(`dislikes/${id}`, { headers: { Authorization: loggeduser }}).then(response => {
+      setDislikes(response.data.count)
+      setDisliked(response.data.liked)
     })
   }, [id, loggeduser])
 
@@ -60,6 +70,30 @@ const CardController = ({loggeduser, post}) => {
     }
   }
 
+  async function handleNewDislike(id){
+    try {
+      await api.post(`/dislikes/${id}`, {}, { headers: { Authorization: loggeduser }})
+      setDislikes(prevDislikes => prevDislikes + 1)
+      setDisliked(true)
+
+    } catch (e) {
+      alert('Não foi possível dar dislike.')
+      console.log(e)
+    }
+  }
+
+  async function handleDeleteDislike(id){
+    try {
+      await api.delete(`dislikes/${id}`, { headers: { Authorization: loggeduser }, })
+      setDislikes(prevDislikes => prevDislikes - 1)
+      setDisliked(false)
+
+    } catch (e) {
+      alert('Não foi possível tirar seu like.')
+      console.log(e)
+    }
+  }
+
   return (
     <article className='card' key={id}>
       <div className='profile-container'>
@@ -83,19 +117,24 @@ const CardController = ({loggeduser, post}) => {
         <div className='info-div'>
           <FiArrowUp
             size={25}
-            color={liked ? '#000000' : hover ? "#989898" : "#FFFFFF"}
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
+            color={liked ? '#000000' : likeHover ? "#989898" : "#FFFFFF"}
+            onMouseEnter={() => SetLikeHover(true)}
+            onMouseLeave={() => SetLikeHover(false)}
             onClick={liked ? () => handleDeleteLike(id) : () => handleNewLike(id) }
             style={{cursor: 'pointer'}}
           />
-
           <div className='span-bold'>{likes}</div>
         </div>
 
         <div className='info-div'>
-          <FiArrowDown size={25} color="FFFFFFF" style={{cursor: 'pointer'}}/>
-          <div className='span-bold'>{dislikes ? dislikes : '10 K'}</div>
+          <FiArrowDown 
+            size={25} 
+            color={disliked ? '#000000' : dislikeHover ? "#989898" : "#FFFFFF"}
+            onMouseEnter={() => SetDislikeHover(true)}
+            onMouseLeave={() => SetDislikeHover(false)}
+            onClick={disliked ? () => handleDeleteDislike(id) : () => handleNewDislike(id) }
+            style={{cursor: 'pointer'}}/>
+          <div className='span-bold'>{dislikes}</div>
         </div>
 
         <div className='info-div'>
