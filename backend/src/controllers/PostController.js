@@ -11,6 +11,7 @@ module.exports = {
             .limit(9)
             .offset((page - 1) * 9)
             .select(['posts.*', 'users.name', 'users.picture'])
+            .orderBy('id', 'desc')
         
         response.header('X-Total-Count', count['count(*)'])
 
