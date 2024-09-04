@@ -28,14 +28,13 @@ const Login = () => {
 
     try {
       const response = await api.post('sessions', { email, password })
-      alert('Login com sucesso')
       localStorage.setItem('userid', response.data.id)
       localStorage.setItem('username', response.data.name)
       localStorage.setItem('userpic', response.data.picture)
       navigate('/timeline')
 
     } catch (err){
-      alert('Falha no login')
+      alert('Falha no login: ' + err)
     }
   }
 

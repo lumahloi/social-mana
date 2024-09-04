@@ -20,19 +20,20 @@ const Cadastro = () => {
 
   async function handleRegister(e){
     e.preventDefault()
+    const picture = null
 
     const data = {
       name,
       email,
-      password
+      password,
+      picture
     }
 
     try {
-      const response = await api.post('users', data)
-      alert('Cadastro realizado')
+      await api.post('/users/', data)
       navigate('/login')
     } catch (err) {
-      alert('Erro no cadastro')
+      alert('Erro no Cadastro: ' + err)
     }
   }
 

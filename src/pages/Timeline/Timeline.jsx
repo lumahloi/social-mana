@@ -103,6 +103,7 @@ const CardController = ({loggeduser, post}) => {
 
         <div className='profile-text'>
           <span style={{cursor: 'pointer'}}>/ notícias</span>
+            {console.log('userid: ' + userid + 'loggeduser: ' + loggeduser)}
             {userid === loggeduser && ( 
               <FiTrash2 
                 size={20} 
@@ -185,8 +186,9 @@ const Timeline = () => {
   }
 
   useEffect(() => {
-    api.get('/posts', {}).then(response => {
+    api.get('/posts', {headers: {Authorization: loggeduser}}).then(response => {
       setPosts(response.data)
+      console.log(posts)
   })}, [])
 
   function handleLogout(){
