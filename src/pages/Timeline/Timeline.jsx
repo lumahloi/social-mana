@@ -187,9 +187,8 @@ const Timeline = () => {
 
   useEffect(() => {
     api.get('/posts', {headers: {Authorization: loggeduser}}).then(response => {
-      setPosts(response.data)
-      console.log(posts)
-  })}, [])
+      setPosts(response.data)})
+  }, [])
 
   function handleLogout(){
     localStorage.clear()
@@ -212,17 +211,6 @@ const Timeline = () => {
       </header>
 
       <form className='timeline-form' onSubmit={handlePostCreation}>
-        <div>
-          <label htmlFor="">Tema:</label>
-          <select name="" id="" className='post-select'>
-            <option value="">notícias</option>
-            <option value="">política</option>
-            <option value="">entretenimento</option>
-            <option value="">conversa</option>
-            <option value="">desabafo</option>
-          </select>
-        </div>
-
         <div>
           <label htmlFor="">O que você está pensando?</label>
           <div className='post-div'>
