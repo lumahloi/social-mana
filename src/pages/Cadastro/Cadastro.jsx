@@ -20,7 +20,10 @@ const Cadastro = () => {
 
   async function handleRegister(e){
     e.preventDefault()
+
     const picture = null
+    const regexName = /^[a-zA-Z0-9]*$/
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const data = {
       name,
@@ -29,11 +32,15 @@ const Cadastro = () => {
       picture
     }
 
-    try {
-      await api.post('/users/', data)
-      navigate('/login')
-    } catch (err) {
-      alert('Erro no Cadastro: ' + err)
+    if(!regexName.test(name) && regexEmail.test(email)){
+      try {
+        await api.post('/users/', data)
+        navigate('/login')
+      } catch (err) {
+        alert('Erro no Cadastro: ' + err)
+      }
+    } else {
+      alert('Preencha as informações de forma válida!')
     }
   }
 
@@ -46,7 +53,7 @@ const Cadastro = () => {
 
             <form onSubmit={handleRegister}>
                 <label htmlFor="username">Nome de usuário</label>
-                <input type="text" name="username" id="username" placeholder="Esse será o nome exibido" value={name} onChange={e => setName(e.target.value)} maxLength={20} minLength={5} required/>
+                <input type="text" name="username" id="username" placeholder="Esse será o nome exibido" value={name} onChange={e => setName(e.target.value)} maxLength={18} minLength={5} required/>
 
                 <label htmlFor="useremail">E-mail</label>
                 <input type="email" name="useremail" id="useremail" placeholder="Insira seu melhor email" value={email} onChange={e => setEmail(e.target.value)} maxLength={30} required/>
