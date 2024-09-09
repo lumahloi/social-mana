@@ -16,11 +16,12 @@ import img_6 from '../../assets/6.png'
 import img_7 from '../../assets/7.png'
 
 const CardController = ({loggeduser, post}) => {
-  const { id, description, userid, name, picture } = post
+  const { id, description, userid, name, picture, comment_count } = post
   const profilePic = picture ? `img_${picture}` : img_7
 
   const [likeHover, SetLikeHover] = useState(false)
   const [dislikeHover, SetDislikeHover] = useState(false)
+  const [comHover, SetComHover] = useState(false)
 
   const [liked, setLiked] = useState(false)
   const [disliked, setDisliked] = useState(false)
@@ -153,12 +154,17 @@ const CardController = ({loggeduser, post}) => {
             style={{cursor: 'pointer'}}/>
           <div className='span-bold'>{dislikes}</div>
         </div>
-        {/*
         <div className='info-div'>
-          <FiMessageCircle size={25} color="FFFFFFF" style={{cursor: 'pointer'}}/>
-          <div className='span-bold'>10 k</div>
+          <FiMessageCircle 
+            size={25} 
+            color={comHover ? "#989898" : "#FFFFFF"}
+            onMouseEnter={() => SetComHover(true)}
+            onMouseLeave={() => SetComHover(false)}
+            //onClick={}
+            style={{cursor: 'pointer'}}
+          />
+          <div className='span-bold'>{post.comment_count}</div>
         </div>
-        */}
       </div>
     </article>
   )
@@ -182,7 +188,8 @@ const Timeline = () => {
     try {
       await api.post('posts', data, {
         headers: {
-          Authorization: loggeduser
+          Authorization: loggeduser,
+          Postid: false
         }
       })
 
@@ -193,7 +200,12 @@ const Timeline = () => {
   }
 
   useEffect(() => {
-    api.get('/posts', {headers: {Authorization: loggeduser}}).then(response => {
+    api.get('/posts', {
+      headers: {
+        Authorization: loggeduser, 
+        Postid: false
+      }
+    }).then(response => {
       setPosts(response.data)})
   }, [])
 
