@@ -2,7 +2,7 @@ import axios from 'axios'
 require('dotenv').config()
 
 const api = axios.create({
-    baseURL: 'http://localhost:3333/'
+    baseURL: 'https://social-mana-api-production.up.railway.app/'
 })
 
 export default api
