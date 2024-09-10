@@ -32,7 +32,7 @@ const Cadastro = () => {
       picture
     }
 
-    if(!regexName.test(name) && regexEmail.test(email)){
+    if(regexName.test(name) && regexEmail.test(email) && name.trim().length > 0){
       try {
         await api.post('/users/', data)
         navigate('/login')
