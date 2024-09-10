@@ -188,8 +188,7 @@ const Timeline = () => {
     try {
       await api.post('posts', data, {
         headers: {
-          Authorization: loggeduser,
-          Postid: false
+          Authorization: loggeduser
         }
       })
 
@@ -202,8 +201,7 @@ const Timeline = () => {
   useEffect(() => {
     api.get('/posts', {
       headers: {
-        Authorization: loggeduser, 
-        Postid: false
+        Authorization: loggeduser
       }
     }).then(response => {
       setPosts(response.data)})
