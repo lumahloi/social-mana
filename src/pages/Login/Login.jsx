@@ -47,7 +47,7 @@ const Login = () => {
 
             <form onSubmit={handleLogin}>
                 <label htmlFor="useremail">E-mail</label>
-                <input type="email" name="useremail" id="useremail" value={email} onChange={e => setEmail(e.target.value)} maxLength={30} required/>
+                <input type="email" name="useremail" id="useremail" value={email} onChange={e => setEmail(e.target.value)} maxLength={30} required placeholder="Insira seu e-mail"/>
 
                 <label htmlFor="userpass">Senha</label>
                 <div className="input-group" style={{position: 'relative'}}>

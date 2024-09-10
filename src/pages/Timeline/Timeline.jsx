@@ -1,19 +1,27 @@
 import Logo from '../../assets/logo.svg'
-import ProfilePicture from '../../assets/profile-pic.jpg'
 
 import { FiLogOut, FiSend, FiArrowUp, FiArrowDown, FiMessageCircle, FiTrash2 } from 'react-icons/fi'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 import api from '../../services/api'
-
 import './styles.css'
 
+import img_1 from '../../assets/1.png'
+import img_2 from '../../assets/2.png'
+import img_3 from '../../assets/3.png'
+import img_4 from '../../assets/4.png'
+import img_5 from '../../assets/5.png'
+import img_6 from '../../assets/6.png'
+import img_7 from '../../assets/7.png'
+
 const CardController = ({loggeduser, post}) => {
-  const { id, description, userid, name, picture } = post
+  const { id, description, userid, name, picture, comment_count } = post
+  const profilePic = picture ? `img_${picture}` : img_7
 
   const [likeHover, SetLikeHover] = useState(false)
   const [dislikeHover, SetDislikeHover] = useState(false)
+  const [comHover, SetComHover] = useState(false)
 
   const [liked, setLiked] = useState(false)
   const [disliked, setDisliked] = useState(false)
@@ -99,11 +107,10 @@ const CardController = ({loggeduser, post}) => {
   return (
     <article className='card' key={id}>
       <div className='profile-container'>
-        <img src={picture ? picture : ProfilePicture} alt="" className='profile-pic'/>
+        <img src={profilePic} alt="" className='profile-pic'/>
 
         <div className='profile-text'>
           <span style={{cursor: 'pointer'}}>/ notícias</span>
-            {console.log('userid: ' + userid + 'loggeduser: ' + loggeduser)}
             {userid === loggeduser && ( 
               <FiTrash2 
                 size={20} 
@@ -147,12 +154,17 @@ const CardController = ({loggeduser, post}) => {
             style={{cursor: 'pointer'}}/>
           <div className='span-bold'>{dislikes}</div>
         </div>
-        {/*
         <div className='info-div'>
-          <FiMessageCircle size={25} color="FFFFFFF" style={{cursor: 'pointer'}}/>
-          <div className='span-bold'>10 k</div>
+          <FiMessageCircle 
+            size={25} 
+            color={comHover ? "#989898" : "#FFFFFF"}
+            onMouseEnter={() => SetComHover(true)}
+            onMouseLeave={() => SetComHover(false)}
+            //onClick={}
+            style={{cursor: 'pointer'}}
+          />
+          <div className='span-bold'>{post.comment_count}</div>
         </div>
-        */}
       </div>
     </article>
   )
@@ -160,8 +172,9 @@ const CardController = ({loggeduser, post}) => {
 
 const Timeline = () => {
   const username = localStorage.getItem('username')
-  const pfp = localStorage.getItem('picture')
+  const userpic = localStorage.getItem('userpic')
   const loggeduser = localStorage.getItem('userid')
+  const profilePic = userpic ? img_7 : `img_${userpic}`
   const navigate = useNavigate()
 
   const [posts, setPosts] = useState([])
@@ -186,10 +199,13 @@ const Timeline = () => {
   }
 
   useEffect(() => {
-    api.get('/posts', {headers: {Authorization: loggeduser}}).then(response => {
-      setPosts(response.data)
-      console.log(posts)
-  })}, [])
+    api.get('/posts', {
+      headers: {
+        Authorization: loggeduser
+      }
+    }).then(response => {
+      setPosts(response.data)})
+  }, [])
 
   function handleLogout(){
     localStorage.clear()
@@ -203,7 +219,7 @@ const Timeline = () => {
             <img src={Logo} alt="Mana" className='logo'/>
           </Link>
           <div className='header-user'>
-            <img src={pfp ? pfp : ProfilePicture} alt="" className='profile-pic-timeline'/>
+            <img src={profilePic} alt="" className='profile-pic-timeline'/>
             <span style={{cursor: 'pointer'}}>@{username}</span> 
             <FiLogOut size={22} color={logoutHover ? "#989898" : "#FFFFFF"}
                 onMouseEnter={() => setLogoutHover(true)}
@@ -212,17 +228,6 @@ const Timeline = () => {
       </header>
 
       <form className='timeline-form' onSubmit={handlePostCreation}>
-        <div>
-          <label htmlFor="">Tema:</label>
-          <select name="" id="" className='post-select'>
-            <option value="">notícias</option>
-            <option value="">política</option>
-            <option value="">entretenimento</option>
-            <option value="">conversa</option>
-            <option value="">desabafo</option>
-          </select>
-        </div>
-
         <div>
           <label htmlFor="">O que você está pensando?</label>
           <div className='post-div'>
@@ -234,9 +239,11 @@ const Timeline = () => {
 
       <div className='cards-container'>
         {posts.map(post => (
-          <CardController 
+          <CardController
+            key={posts.id} 
             loggeduser={loggeduser} 
-            post={post}/>
+            post={post}
+            />
         ))}
       </div>
     </div>

@@ -1,5 +1,4 @@
 import ImgMana from '../../assets/mana.png'
-import ProfilePicture from '../../assets/profile-pic.jpg'
 import ImgManas from '../../assets/manas2.png'
 import Logo from '../../assets/logo.svg'
 
@@ -45,7 +44,7 @@ const Home = () => {
             <div className='cards-container'>
                 <article className='card'>
                     <div className='profile-container'>
-                        <img src={ProfilePicture} alt="Foto de perfil do usuário" className='profile-pic'/>
+                        <img src="../../assets/7.png" alt="Foto de perfil do usuário" className='profile-pic'/>
 
                         <div className='profile-text'>
                             <span>/ notícias</span>
@@ -69,7 +68,7 @@ const Home = () => {
 
                 <article className='card'>
                     <div className='profile-container'>
-                        <img src={ProfilePicture} alt="Foto de perfil do usuário" className='profile-pic'/>
+                        <img src="../../assets/7.png" alt="Foto de perfil do usuário" className='profile-pic'/>
 
                         <div className='profile-text'>
                             <span>/ notícias</span>
@@ -93,7 +92,7 @@ const Home = () => {
 
                 <article className='card'>
                     <div className='profile-container'>
-                        <img src={ProfilePicture} alt="Foto de perfil do usuário" className='profile-pic'/>
+                        <img src="../../assets/7.png" alt="Foto de perfil do usuário" className='profile-pic'/>
 
                         <div className='profile-text'>
                             <span>/ notícias</span>
@@ -117,7 +116,7 @@ const Home = () => {
 
                 <article className='card'>
                     <div className='profile-container'>
-                        <img src={ProfilePicture} alt="Foto de perfil do usuário" className='profile-pic'/>
+                        <img src="../../assets/7.png" alt="Foto de perfil do usuário" className='profile-pic'/>
 
                         <div className='profile-text'>
                             <span>/ notícias</span>
@@ -141,7 +140,7 @@ const Home = () => {
 
                 <article className='card'>
                     <div className='profile-container'>
-                        <img src={ProfilePicture} alt="Foto de perfil do usuário" className='profile-pic'/>
+                        <img src="../../assets/7.png" alt="Foto de perfil do usuário" className='profile-pic'/>
 
                         <div className='profile-text'>
                             <span>/ notícias</span>
@@ -165,7 +164,7 @@ const Home = () => {
 
                 <article className='card'>
                     <div className='profile-container'>
-                        <img src={ProfilePicture} alt="Foto de perfil do usuário" className='profile-pic'/>
+                        <img src="../../assets/7.png" alt="Foto de perfil do usuário" className='profile-pic'/>
 
                         <div className='profile-text'>
                             <span>/ notícias</span>
