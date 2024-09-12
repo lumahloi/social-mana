@@ -32,6 +32,7 @@ const Login = () => {
       localStorage.setItem('username', response.data.name)
       localStorage.setItem('userpic', response.data.picture)
       navigate('/timeline')
+
     } catch (err){
       alert('Falha no login: ' + err)
     }

@@ -111,7 +111,7 @@ const CardController = ({loggeduser, post}) => {
 
         <div className='profile-text'>
           <span style={{cursor: 'pointer'}}>/ notícias</span>
-            {userid === loggeduser && ( 
+            {(userid === loggeduser) && ( 
               <FiTrash2 
                 size={20} 
                 color={trashHover ? "#989898" : "#FFFFFF"}
