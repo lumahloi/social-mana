@@ -10,7 +10,8 @@ import { FiLinkedin, FiGithub, FiMail, FiArrowUp, FiArrowDown, FiMessageCircle }
 import './styles.css'
 
 const Home = () => {
-    const profilePic = picture ? `img_${picture}` : img_7
+    const profilePic = img_7
+    console.log(profilePic)
     return (
         <div>
             <header className='home-header'>
