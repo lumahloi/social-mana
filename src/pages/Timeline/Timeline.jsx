@@ -16,7 +16,6 @@ import img_6 from '../../assets/6.png'
 import img_7 from '../../assets/7.png'
 
 const CardController = ({loggeduser, post}) => {
-  console.log(post)
   const { id, description, userid, name, picture, comment_count } = post
   const profilePic = picture ? `img_${picture}` : img_7
 
@@ -111,8 +110,6 @@ const CardController = ({loggeduser, post}) => {
         <img src={profilePic} alt="" className='profile-pic'/>
 
         <div className='profile-text'>
-          {console.log(userid, loggeduser)}
-          {console.log(userid == loggeduser)}
           <span style={{cursor: 'pointer'}}>/ notícias</span>
             {(userid === loggeduser) && ( 
               <FiTrash2 
