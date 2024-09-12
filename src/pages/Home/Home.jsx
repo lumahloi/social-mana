@@ -11,7 +11,6 @@ import './styles.css'
 
 const Home = () => {
     const profilePic = img_7
-    console.log(profilePic)
     return (
         <div>
             <header className='home-header'>
@@ -51,13 +50,13 @@ const Home = () => {
 
                             <div className='profile-text'>
                                 <span>/ notícias</span>
-                                <span className='span-bold'>@garoto de programa</span>
+                                <span className='span-bold'>@freestyle</span>
                             </div>
                         </div>
 
                         <div className="post-content">
                             <br />
-                            <p>WTF um cara entrou com uma bateria de lítio num elevador e ela EXPLODIU !!! ele morreu carbonizado '-'</p>
+                            <p>Aproveitando o dia ensolarado no parque! 🌞 #Natureza #Relax</p>
                         </div>
 
                         <hr />
@@ -75,13 +74,13 @@ const Home = () => {
 
                             <div className='profile-text'>
                                 <span>/ notícias</span>
-                                <span className='span-bold'>@garoto de programa</span>
+                                <span className='span-bold'>@bookworm</span>
                             </div>
                         </div>
 
                         <div className="post-content">
                             <br />
-                            <p>WTF um cara entrou com uma bateria de lítio num elevador e ela EXPLODIU !!! ele morreu carbonizado '-'</p>
+                            <p>Acabei de terminar um livro incrível! Alguém tem recomendações para o próximo? 📚</p>
                         </div>
 
                         <hr />
@@ -99,13 +98,13 @@ const Home = () => {
 
                             <div className='profile-text'>
                                 <span>/ notícias</span>
-                                <span className='span-bold'>@garoto de programa</span>
+                                <span className='span-bold'>@chocaholic</span>
                             </div>
                         </div>
 
                         <div className="post-content">
                             <br />
-                            <p>WTF um cara entrou com uma bateria de lítio num elevador e ela EXPLODIU !!! ele morreu carbonizado '-'</p>
+                            <p>Treino pesado hoje na academia! 💪 #Fitness #Saúde</p>
                         </div>
 
                         <hr />
@@ -123,13 +122,13 @@ const Home = () => {
 
                             <div className='profile-text'>
                                 <span>/ notícias</span>
-                                <span className='span-bold'>@garoto de programa</span>
+                                <span className='span-bold'>@moooovie</span>
                             </div>
                         </div>
 
                         <div className="post-content">
                             <br />
-                            <p>WTF um cara entrou com uma bateria de lítio num elevador e ela EXPLODIU !!! ele morreu carbonizado '-'</p>
+                            <p>Experimentando uma nova receita de bolo de chocolate. Alguém quer um pedaço? 🍫🍰</p>
                         </div>
 
                         <hr />
@@ -147,13 +146,13 @@ const Home = () => {
 
                             <div className='profile-text'>
                                 <span>/ notícias</span>
-                                <span className='span-bold'>@garoto de programa</span>
+                                <span className='span-bold'>@coffeeee</span>
                             </div>
                         </div>
 
                         <div className="post-content">
                             <br />
-                            <p>WTF um cara entrou com uma bateria de lítio num elevador e ela EXPLODIU !!! ele morreu carbonizado '-'</p>
+                            <p>Assistindo a um filme clássico pela primeira vez. Que obra-prima! 🎬 #Cinema</p>
                         </div>
 
                         <hr />
@@ -171,13 +170,13 @@ const Home = () => {
 
                             <div className='profile-text'>
                                 <span>/ notícias</span>
-                                <span className='span-bold'>@garoto de programa</span>
+                                <span className='span-bold'>@happyfrog</span>
                             </div>
                         </div>
 
                         <div className="post-content">
                             <br />
-                            <p>WTF um cara entrou com uma bateria de lítio num elevador e ela EXPLODIU !!! ele morreu carbonizado '-'</p>
+                            <p>Passeio de fim de semana com a família. Amo esses momentos! ❤️ #Família</p>
                         </div>
 
                         <hr />
