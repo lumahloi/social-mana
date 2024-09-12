@@ -110,8 +110,10 @@ const CardController = ({loggeduser, post}) => {
         <img src={profilePic} alt="" className='profile-pic'/>
 
         <div className='profile-text'>
+          {console.log(userid, loggeduser)}
+          {console.log(userid == loggeduser)}
           <span style={{cursor: 'pointer'}}>/ notícias</span>
-            {(userid == loggeduser) && ( 
+            {(userid === loggeduser) && ( 
               <FiTrash2 
                 size={20} 
                 color={trashHover ? "#989898" : "#FFFFFF"}
