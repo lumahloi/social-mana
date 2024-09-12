@@ -16,6 +16,7 @@ import img_6 from '../../assets/6.png'
 import img_7 from '../../assets/7.png'
 
 const CardController = ({loggeduser, post}) => {
+  console.log(post)
   const { id, description, userid, name, picture, comment_count } = post
   const profilePic = picture ? `img_${picture}` : img_7
 
