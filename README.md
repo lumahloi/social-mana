@@ -16,7 +16,7 @@
 - **Frontend**: React, HTML, CSS
 - **Backend**: Node
 - **Frameworks**: Axios, Express, Dotenv, Cors
-- **Outros**: GitHub, Visual Studio Code, Railway
+- **Outros**: GitHub, Visual Studio Code, Railway, Insomnia
 
 ## Funcionalidades
 - Realizar login, cadastro e logout;
