@@ -8,9 +8,9 @@
 **Mana** é a sua nova rede social, criada para conectar pessoas de maneira autêntica e significativa. Aqui, você pode compartilhar suas histórias e se inspirar com conteúdos que realmente importam. Faça parte de uma comunidade vibrante e acolhedora!
 
 ## Imagens
-<img src="https://media.licdn.com/dms/image/v2/D4D22AQG60xqwBD823g/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1725492689045?e=1735776000&v=beta&t=DHl5zwLx8e5Kobk7XOOD7WugK4dZJelbFm_gfaXTt2Q">
-<img src="https://media.licdn.com/dms/image/v2/D4D22AQEeO11SOSRUXA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1725492688941?e=1735776000&v=beta&t=eacfJZz3qjqcBPKt9-zNdvGmL9ctOLwStbmkXa9XRss">
-<img src="https://media.licdn.com/dms/image/v2/D4D22AQFRD6aKJBKWmg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1725492688937?e=1735776000&v=beta&t=4Fm8IOV_hWmt8WlZHRnztsT4IF3wr5ukEWz4tiV6eHs">
+![Image 1](1725490549933.jpg)
+![Image 2](1725490562271.jpg)
+![Image 3](1725490570284.jpg)
 
 ## Tecnologias utilizadas
 - **Frontend**: React, HTML, CSS
