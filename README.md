@@ -6,7 +6,7 @@
 [![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=fff)](#)
 [![Express.js](https://img.shields.io/badge/Express.js-%23404d59.svg?logo=express&logoColor=%2361DAFB)](#)
 
-**Mana** is your new social network, created to connect people in authentic and meaningful ways. Here, you can share your stories and get inspired by content that really matters. Be part of a vibrant and welcoming community! This is the front-end repository, check the back-end [here](https://github.com/lumahloi/social-mana-api). 
+**Mana** is your new social network, created to connect people in authentic and meaningful ways. Here, you can share your stories and get inspired by content that really matters. Be part of a vibrant and welcoming community! 
 
 ## Screenshots
 ![Image 1](./screenshots/1725490549933.jpg)
